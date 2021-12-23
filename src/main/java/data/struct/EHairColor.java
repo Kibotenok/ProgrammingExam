@@ -1,13 +1,14 @@
 package data.struct;
 
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 
 /**
  * Перечисление с возможными цветами волос
  * @author Антропов Никита
  * @version 1.0
  */
-enum EHairColor {
+public enum EHairColor {
     RED("Красные"),
     BLACK("Черные"),
     BROWN("Каштановые");
@@ -31,8 +32,8 @@ enum EHairColor {
      * @param name - название цвета
      * @return значение EHairColor
      */
-    public static EHairColor getByName(String name) {
+    public static EHairColor getByName(String name) throws  NoSuchElementException {
         return Arrays.stream(EHairColor.values()).filter(e -> name.equals(e.name)).findAny()
-                .orElseThrow(() -> new NullPointerException("Поле Цвет Волос не содержит значения " + name + "\n"));
+                .orElseThrow(() -> new NoSuchElementException("Поле Цвет Волос не содержит значения " + name + "\n"));
     }
 }

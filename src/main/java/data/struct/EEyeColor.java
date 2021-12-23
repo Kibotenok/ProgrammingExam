@@ -1,17 +1,18 @@
 package data.struct;
 
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 
 /**
  * Перечисление с возможными цветами глаз
  * @author Антропов Никита
  * @version 1.0
  */
-enum EEyeColor {
+public enum EEyeColor implements Comparable<EEyeColor> {
     GREEN("Зеленые"),
     BLACK("Черные"),
     BLUE("Голубые"),
-    BROWN("Каштановые");
+    BROWN("Карие");
     /** Название цвета */
     private final String name;
 
@@ -32,8 +33,8 @@ enum EEyeColor {
      * @param name - название цвета
      * @return значение EEyeColor
      */
-    public static EEyeColor getByName(String name) {
+    public static EEyeColor getByName(String name) throws NoSuchElementException {
         return Arrays.stream(EEyeColor.values()).filter(e -> name.equals(e.name)).findAny()
-                .orElseThrow(() -> new NullPointerException("Поле Цвет Глаз не содержит значения " + name + "\n"));
+                .orElseThrow(() -> new NoSuchElementException("Поле Цвет Глаз не содержит значения " + name + "\n"));
     }
 }

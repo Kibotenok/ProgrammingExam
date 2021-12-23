@@ -10,10 +10,10 @@ import java.util.Locale;
  * @version 1.0
  */
 final class Location {
-    /** Поле name - имя человека */
-    private final String name;
-    /** Поле y - положение по оси Y */
-    private final Double y;
+    /** Поле NAME - имя человека */
+    private final String NAME;
+    /** Поле Y - положение по оси Y */
+    private final Double Y;
     /** Поле x - положение по оси X */
     private final long x;
 
@@ -22,8 +22,8 @@ final class Location {
      * @param builder - объект строителя
      */
     private Location(Builder builder) {
-        this.name = builder.name;
-        this.y = builder.y;
+        this.NAME = builder.name;
+        this.Y = builder.y;
         this.x = builder.x;
     }
 
@@ -45,7 +45,7 @@ final class Location {
          * @param name - имя человека
          * @param y - положение по оси Y
          */
-        public Builder(String name, Double y) {
+        public Builder(String name, Double y) throws NullPointerException {
             if (name == null || "".equals(name))
                 throw new NullPointerException("Поле Имя не может быть пустым\n");
             if (y == null)
@@ -80,8 +80,8 @@ final class Location {
      */
     @Override
     public String toString() {
-        return "Положение[имя=" + this.name + ", X=" + this.x + ", Y=" +
-                new DecimalFormat("#0.00", new DecimalFormatSymbols(Locale.US)).format(this.y) + "]";
+        return "Положение[имя=" + this.NAME + ", X=" + this.x + ", Y=" +
+                new DecimalFormat("#0.00", new DecimalFormatSymbols(Locale.US)).format(this.Y) + "]";
     }
 
     /**
@@ -93,15 +93,21 @@ final class Location {
 
     /**
      * Получение значения поля y
-     * @see Location#y
+     * @see Location#Y
      * @return значение поля y
      */
-    public Double getY() { return this.y; }
+    public Double getY() { return this.Y; }
 
     /**
      * Получение значения поля name
-     * @see Location#name
+     * @see Location#NAME
      * @return значение поля name
      */
-    public String getName() { return this.name; }
+    public String getName() { return this.NAME; }
+
+    /**
+     * Получение дистанции от начала координат
+     * @return дистанция от начала координат
+     */
+    public Double getDistance() { return Math.sqrt(this.Y*this.Y + this.x*this.x); }
 }

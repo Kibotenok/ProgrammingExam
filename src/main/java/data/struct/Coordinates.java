@@ -10,18 +10,18 @@ import java.util.Locale;
  * @version 1.0
  */
 final class Coordinates {
-    /** Поле y - положение по оси X */
-    private final Float x;
-    /** Поле y - положение по оси Y */
-    private final Float y;
+    /** Поле X - положение по оси X */
+    private final Float X;
+    /** Поле Y - положение по оси Y */
+    private final Float Y;
 
     /**
      * Конструктор класса
      * @param builder - объект строителя
      */
     private Coordinates(Builder builder) {
-        this.x = builder.x;
-        this.y = builder.y;
+        this.X = builder.x;
+        this.Y = builder.y;
     }
 
     /**
@@ -40,7 +40,7 @@ final class Coordinates {
          * @param x - положение по оси X
          * @param y - положение по оси Y
          */
-        public Builder(Float x, Float y) {
+        public Builder(Float x, Float y) throws NullPointerException, IllegalArgumentException {
             if (x == null)
                 throw new NullPointerException("Поле X не может быть пустым\n");
             if (x <= -315.0)
@@ -66,21 +66,27 @@ final class Coordinates {
      */
     @Override
     public String toString() {
-        return "Координаты[X=" + new DecimalFormat("#0.00", new DecimalFormatSymbols(Locale.US)).format(this.x)
-                + ", Y=" + new DecimalFormat("#0.00", new DecimalFormatSymbols(Locale.US)).format(this.y) + "]";
+        return "Координаты[X=" + new DecimalFormat("#0.00", new DecimalFormatSymbols(Locale.US)).format(this.X)
+                + ", Y=" + new DecimalFormat("#0.00", new DecimalFormatSymbols(Locale.US)).format(this.Y) + "]";
     }
 
     /**
      * Получение значения поля x
-     * @see Coordinates#x
+     * @see Coordinates#X
      * @return значение поля x
      */
-    public Float getX() { return this.x; }
+    public Float getX() { return this.X; }
 
     /**
      * Получение значения поля y
-     * @see Coordinates#y
+     * @see Coordinates#Y
      * @return значение поля y
      */
-    public Float getY() { return this.y; }
+    public Float getY() { return this.Y; }
+
+    /**
+     * Получение дистанции от начала координат
+     * @return дистанция от начала координат
+     */
+    public Double getDistance() { return Math.sqrt(this.Y*this.Y + this.X*this.X); }
 }
